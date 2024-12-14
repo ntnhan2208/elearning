@@ -20,6 +20,7 @@ class CreateTestsTable extends Migration
         });
         Schema::table('tests', function (Blueprint $table) {
             $table->foreignId('teacher_id')->nullable()->constrained('teachers');
+            $table->foreignId('chapter_id')->nullable()->constrained('chapters');
         });
     }
 

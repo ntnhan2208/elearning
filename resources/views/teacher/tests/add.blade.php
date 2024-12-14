@@ -19,6 +19,7 @@
                 <div class="card-body shadow-lg bg-white rounded">
                     <form action="{{ route('tests.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <input name="chapter_id" value="{{$chapterId}}" hidden readonly>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -39,7 +40,7 @@
                                     <tr>
                                         <th data-priority="1" class="text-center"></th>
                                         <th data-priority="1">Câu hỏi</th>
-                                        <th data-priority="1">Chương</th>
+{{--                                        <th data-priority="1">Chương</th>--}}
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -48,7 +49,7 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $review->question }}</td>
-                                            <td>{{ $review->chapter->chapter_name }}</td>
+{{--                                            <td>{{ $review->chapter->chapter_name }}</td>--}}
                                             <td><input type="checkbox" name="review_id[]" value="{{$review->id}}"></td>
                                         </tr>
                                     @endforeach

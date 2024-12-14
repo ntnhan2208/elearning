@@ -29,7 +29,7 @@
                                         <td>{{ $subject->subject_name }}</td>
                                         <td class="text-right">
                                             <form class="float-right" action="{{route('subjects.destroy',$subject->id)}}"
-                                                  method="POST" onSubmit="if(!confirm('Bạn chắc chắn muốn xoá Giáo viên?'))
+                                                  method="POST" onSubmit="if(!confirm('Bạn chắc chắn muốn xoá Môn học?'))
 												  {return false;}">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}

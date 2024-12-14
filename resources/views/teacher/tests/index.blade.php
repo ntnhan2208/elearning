@@ -1,60 +1,45 @@
 @extends('admin.master')
 @section('content')
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-lg-12">
             <div class="page-title-box">
-                <div class="float-right">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Quản lý Câu hỏi bài kiểm tra</a></li>
-                        <li class="breadcrumb-item active">Chỉnh sửa Câu hỏi bài kiểm tra</li>
-                    </ol>
-                </div>
-                <h4 class="page-title">Danh sách Câu hỏi bài kiểm tra</h4>
-                <div class="float-left mt-1 mb-2">
-                    <a class="btn btn-primary" href="{{ route('tests.create') }}">Thêm/Sửa câu hỏi</a>
-                </div>
+                <h4 class="page-title">Quản lý Bài kiểm tra</h4>
             </div>
         </div>
-    </div>
-    @if($test)
-        <div class="row mr-auto">
-            <div class="col-12">
-                <div class="card shadow-lg bg-white rounded">
-                    <div class="card-body">
-                        <table id="tech-companies-1" class="table table-striped mb-0">
-                            <thead>
-                            <tr>
-                                <th data-priority="1" class="text-center"></th>
-                                <th data-priority="1">Câu hỏi</th>
-                                <th data-priority="1">Chương</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($test->reviews()->get() as $review)
+        <div class="col-lg-12">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="table-rep-plugin">
+                        <div class="table-responsive mb-0" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table table-striped mb-0">
+                                <thead>
                                 <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $review->question }}</td>
-                                    <td>{{ $review->chapter->chapter_name }}</td>
-                                    <td class="text-right">
-                                        <form class="float-right"
-                                              action="{{route('detach-tests',[$test->id,$review->id])}}"
-                                              method="POST" onSubmit="if(!confirm('Bạn chắc chắn muốn xoá Giáo viên?'))
-												  {return false;}">
-                                            {{ method_field('DELETE') }}
-                                            {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-xs btn-danger"><i class="fas
-												fa-trash"></i></button>
-                                        </form>
-                                    </td>
+                                    <th data-priority="1" class="text-center"></th>
+                                    <th data-priority="1">Môn học</th>
+                                    <th data-priority="1"><span class="float-right">Chọn chương</span></th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @foreach($subjects as $subject)
+                                    <tr>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td>{{ $subject->subject_name }}</td>
+                                        <td class="text-right">
+                                            <div class="float-right">
+                                                <a class="btn btn-xs btn-primary mr-3"
+                                                   href="{{ route('test-index-subject',$subject->id) }}">
+                                                    <i class="far fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
+    </div>
 @endsection
-

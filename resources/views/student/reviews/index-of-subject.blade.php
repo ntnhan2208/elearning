@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="page-title-box">
-                <h4 class="page-title">Bài kiểm tra</h4>
+                <h4 class="page-title">Câu hỏi ôn tập</h4>
             </div>
         </div>
         <div class="col-lg-12">
@@ -27,7 +27,7 @@
                                         <td class="text-right">
                                             <div class="float-right">
                                                 <a class="btn btn-xs btn-primary mr-3"
-                                                   href="{{ route('index-chapter-student-test',$subject->id) }}">
+                                                   href="{{ route('index-chapter-student',$subject->id) }}">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                             </div>
@@ -43,4 +43,3 @@
         </div>
     </div>
 @endsection
-

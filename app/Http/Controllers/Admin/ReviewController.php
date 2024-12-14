@@ -29,15 +29,15 @@ class ReviewController extends BaseAdminController
 
     public function index()
     {
-        $subjects = $this->subject->all();
+        $subjects = $this->subject->OfTeacher()->get();
         return view('teacher.reviews.index', compact('subjects'));
     }
 
     public function indexOfChapter($subjectId)
     {
-        $subject = $this->subject->find($subjectId);
+        $subject = $this->subject->OfTeacher()->find($subjectId);
         if ($subject) {
-            $chapters = $subject->chapters()->get();
+            $chapters = $subject->chapters()->OfTeacher()->get();
             return view('teacher.reviews.index-of-chapter', compact('chapters'));
         }
         toastr()->error(trans('site.message.error'));
@@ -46,7 +46,7 @@ class ReviewController extends BaseAdminController
 
     public function indexOfLesson($chapterId)
     {
-        $chapter = $this->chapter->find($chapterId);
+        $chapter = $this->chapter->OfTeacher()->find($chapterId);
         if ($chapter) {
             $lessons = $chapter->lessons()->get();
             return view('teacher.reviews.index-of-lesson', compact('lessons'));
@@ -109,9 +109,18 @@ class ReviewController extends BaseAdminController
     }
 
 
-    public function destroy(Review $review)
+    public function destroy($id)
     {
-        //
+        $review = $this->review->find($id);
+
+        if ($review->tests->isNotEmpty() || $review->students->isNotEmpty()) {
+            toastr()->error('Không thể xoá bài học');
+            return back();
+        } else {
+            $this->review->destroy($id);
+            toastr()->success(trans('site.message.delete_success'));
+            return back();
+        };
     }
 
     public function syncRequest($request, Review $review)

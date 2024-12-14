@@ -20,20 +20,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($chapters as $chaper)
+                                @foreach($lessons as $lesson)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>{{ $chaper->chapter_name }}</td>
+                                        <td>{{ $lesson->lesson_name }}</td>
                                         <td class="text-right">
                                             <div class="float-right">
                                                 <a class="btn btn-xs btn-primary mr-3"
-                                                   href="{{ route('student-reviews.show',$chaper->id) }}">
+                                                   href="{{ route('student-reviews.show',$lesson->id) }}">
                                                     <i class="far fa-edit"> Vào câu hỏi ôn tập</i>
                                                 </a>
                                             </div>
                                             <div class="float-right">
                                                 <a class="btn btn-xs btn-success waves-effect waves-light mr-3"
-                                                   href="{{ route('student-reviews.edit',$chaper->id)}}">
+                                                   href="{{ route('student-reviews.edit',$lesson->id)}}">
                                                     <i class="mdi mdi-check-all">Xem kết quả bài ôn tập gần nhất</i>
                                                 </a>
                                             </div>

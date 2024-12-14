@@ -20,6 +20,7 @@
                     <form action="{{route('student-reviews.store')}}" method="POST"
                           enctype="multipart/form-data" class="form-horizontal well">
                         @csrf
+                        <input type="text" name="lesson_id" value="{{$id}}">
                         @foreach($reviewQuestions as $review)
                             <div class="col-12 mt-2">
                                 <h4 class="mt-0 header-title">{{ $loop->iteration }}. {{$review->question}}</h4>
@@ -34,7 +35,7 @@
                             </div>
 
                         @endforeach
-                            <button type="submit">submit</button>
+                            <button type="submit" class="btn btn-primary mt-3">Hoàn thành</button>
                     </form>
                 </div>
             </div>

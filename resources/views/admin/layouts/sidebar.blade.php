@@ -35,7 +35,7 @@
             <li class="{{ (request()->is('admin/chapters*')) ? 'mm-active' : '' }}">
                 <a href="{{ route('chapters.index') }}">
                     <i class="ti-list-ol"></i>
-                    <span>Quản lý Chương bài học</span>
+                    <span>Quản lý Chương môn học</span>
                 </a>
             </li>
             <li class="{{ (request()->is('admin/lessons*')) ? 'mm-active' : '' }}">

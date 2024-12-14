@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="page-title-box">
-                <h4 class="page-title">Bài kiểm tra</h4>
+                <h4 class="page-title">Câu hỏi ôn tập</h4>
             </div>
         </div>
         <div class="col-lg-12">
@@ -15,19 +15,19 @@
                                 <thead>
                                 <tr>
                                     <th data-priority="1" class="text-center"></th>
-                                    <th data-priority="1">Môn học</th>
-                                    <th data-priority="1"><span class="float-right">Chọn chương</span></th>
+                                    <th data-priority="1">Chương bài học</th>
+                                    <th data-priority="1"><span class="float-right">Chọn bài học</span></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($subjects as $subject)
+                                @foreach($chapters as $chapter)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>{{ $subject->subject_name }}</td>
+                                        <td>{{ $chapter->chapter_name }}</td>
                                         <td class="text-right">
                                             <div class="float-right">
                                                 <a class="btn btn-xs btn-primary mr-3"
-                                                   href="{{ route('index-chapter-student-test',$subject->id) }}">
+                                                   href="{{ route('index-lesson-student',$chapter->id) }}">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                             </div>
@@ -43,4 +43,3 @@
         </div>
     </div>
 @endsection
-

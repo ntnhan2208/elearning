@@ -14,6 +14,7 @@ class Test extends Model
     protected $fillable = [
         'test_name',
         'teacher_id',
+        'chapter_id'
     ];
 
     public function teacher()

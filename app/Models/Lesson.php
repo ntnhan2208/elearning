@@ -11,7 +11,7 @@ class Lesson extends Model
     use HasFactory;
 
     protected $table = 'lessons';
-    protected $fillable = ['lesson_name', 'teacher_id', 'chapter_id'];
+    protected $fillable = ['lesson_name', 'teacher_id', 'chapter_id','lesson_description']  ;
 
     public function scopeOfTeacher($query){
         return $query->where('teacher_id', Teacher::where('account_id', Auth::user()->id)->first()->id);

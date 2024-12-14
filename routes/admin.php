@@ -34,12 +34,20 @@ Route::namespace('admin')->group(function () {
             Route::resource('/reviews', 'ReviewController');
             Route::get('/reviews/chapter/{subject_id}', 'ReviewController@indexOfChapter')->name('index-chapter');
             Route::get('/reviews/chapter/lesson/{chapter_id}', 'ReviewController@indexOfLesson')->name('index-lesson');
+            Route::get('/tests/chapter/{subject_id}', 'TestController@indexOfSubject')->name('test-index-subject');
+            Route::get('/tests/chapter/lesson/{chapter_id}', 'TestController@indexOfChapter')->name('test-index-chapter');
             Route::resource('/tests', 'TestController');
+            Route::get('/tests/create-test/{chapterId}', 'TestController@createWithChapterId')->name('create-test');
             Route::resource('/subjects', 'SubjectController');
             Route::resource('/lessons', 'LessonController');
             Route::resource('/student-tests', 'StudentTestController');
             Route::resource('/student-reviews', 'StudentReviewController');
             Route::delete('/detach-tests/{testId}/{reviewId}', 'TestController@detachTests')->name('detach-tests');
+
+            Route::get('student/reviews/chapter/{subject_id}', 'StudentReviewController@indexOfChapter')->name('index-chapter-student');
+            Route::get('student/reviews/chapter/lesson/{chapter_id}', 'StudentReviewController@indexOfLesson')->name('index-lesson-student');
+            Route::get('student/tests/chapter/{subject_id}', 'StudentTestController@indexOfChapter')->name('index-chapter-student-test');
+            Route::get('student/tests/subject/chapter/{chapter_id}', 'StudentTestController@indexOfTest')->name('index-student-test');
 
         });
         Route::get('/clear-cache', function() {

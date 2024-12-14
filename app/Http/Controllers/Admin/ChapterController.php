@@ -83,9 +83,18 @@ class ChapterController extends BaseAdminController
         }
     }
 
-    public function destroy(Chapter $chapter)
+    public function destroy($id)
     {
+        $chapter = $this->chapter->find($id);
 
+        if ($chapter->lessons->isNotEmpty()) {
+            toastr()->error('Không thể xoá chương môn học');
+            return redirect()->route('chapters.index');
+        } else {
+            $this->chapter->destroy($id);
+            toastr()->success(trans('site.message.delete_success'));
+            return redirect()->route('chapters.index');
+        };
     }
 
     public function syncChapterRequest($request, Chapter $chapter)

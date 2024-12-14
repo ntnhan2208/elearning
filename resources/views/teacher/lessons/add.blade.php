@@ -46,6 +46,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Yêu cầu cần đạt</label>
+                                    <div class="input-group">
+                                        <textarea type="text" id="example-input1-group1" name="lesson_description" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary px-4 mb-3 mt-2"><i class="mdi
                         mdi-plus-circle-outline mr-2"></i>Thêm mới
                         </button>

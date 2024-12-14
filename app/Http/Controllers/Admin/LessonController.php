@@ -83,9 +83,18 @@ class LessonController extends BaseAdminController
         }
     }
 
-    public function destroy(Chapter $chapter)
+    public function destroy($id)
     {
+        $lesson = $this->lesson->find($id);
 
+        if ($lesson->reviews->isNotEmpty()) {
+            toastr()->error('Không thể xoá bài học');
+            return redirect()->route('lessons.index');
+        } else {
+            $this->lesson->destroy($id);
+            toastr()->success(trans('site.message.delete_success'));
+            return redirect()->route('lessons.index');
+        };
     }
 
     public function syncRequest($request, Lesson $lesson)
@@ -93,6 +102,7 @@ class LessonController extends BaseAdminController
         $lesson->lesson_name = $request->lesson_name;
         $lesson->teacher_id = $this->teacher->where('account_id', Auth::user()->id)->first()->id;
         $lesson->chapter_id = $request->chapter_id;
+        $lesson->lesson_description = $request->lesson_description;
         $lesson->save();
     }
 }

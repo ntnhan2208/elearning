@@ -28,7 +28,7 @@
                                 @endforeach
                             </div>
                         @endforeach
-                            <button class="btn btn-primary" type="submit">submit</button>
+                            <button class="btn btn-primary mt-3" type="submit">Hoàn thành</button>
                     </form>
                 </div>
             </div>

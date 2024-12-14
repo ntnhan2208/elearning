@@ -31,7 +31,7 @@
                                         <td>{{ $chaper->subject->subject_name }}</td>
                                         <td class="text-right">
                                             <form class="float-right" action="{{route('chapters.destroy',$chaper->id)}}"
-                                                  method="POST" onSubmit="if(!confirm('Bạn chắc chắn muốn xoá Giáo viên?'))
+                                                  method="POST" onSubmit="if(!confirm('Bạn chắc chắn muốn xoá Chương môn học?'))
 												  {return false;}">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}

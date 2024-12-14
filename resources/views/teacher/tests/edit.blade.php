@@ -20,6 +20,7 @@
                     <form action="{{ route('tests.update', $test->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <input name="chapter_id" value="{{$test->chapter_id}}" hidden readonly>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -50,7 +51,7 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $review->question }}</td>
-                                            <td>{{ $review->chapter->chapter_name }}</td>
+{{--                                            <td>{{ $review->chapter->chapter_name }}</td>--}}
                                             <td><input type="checkbox" name="review_id[]" value="{{$review->id}}"></td>
                                         </tr>
                                     @endforeach

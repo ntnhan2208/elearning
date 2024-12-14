@@ -47,7 +47,16 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Yêu cầu cần đạt</label>
+                                    <div class="input-group">
+                                        <textarea type="text" id="example-input1-group1" name="lesson_description" class="form-control">{{$lesson->lesson_description}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary px-4 mb-3 mt-2"><i class="fas fa-save"></i>
                             {{trans('site.button_update') }} </button>
                         <a href="{{ route('lessons.index') }}">

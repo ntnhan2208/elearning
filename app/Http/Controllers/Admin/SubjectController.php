@@ -76,9 +76,18 @@ class SubjectController extends BaseAdminController
         }
     }
 
-    public function destroy(Subject $subject)
+    public function destroy($id)
     {
+        $subject = $this->subject->find($id);
 
+        if ($subject->chapters->isNotEmpty()) {
+            toastr()->error('Không thể xoá môn học');
+            return redirect()->route('subjects.index');
+        } else {
+            $this->subject->destroy($id);
+            toastr()->success(trans('site.message.delete_success'));
+            return redirect()->route('subjects.index');
+        };
     }
 
     public function syncRequest($request, Subject $subject)

@@ -94,7 +94,7 @@ class StudentController extends BaseAdminController
     {
         $admin->name = $request->name;
         $admin->email = $request->email;
-        $admin->phone_number = $request->phone;
+        $admin->phone = $request->phone;
         $admin->password = $request->password;
         $admin->role = 3;
         $admin->save();

@@ -34,9 +34,9 @@ class TeacherController extends BaseAdminController
 
     public function store(TeacherRequest $request, Admin $admin, Teacher $teacher)
     {
+        $this->syncTeacherRequest($request, $admin, $teacher);
         DB::beginTransaction();
         try {
-            $this->syncTeacherRequest($request, $admin, $teacher);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
             return redirect()->route('teachers.index');
@@ -79,8 +79,8 @@ class TeacherController extends BaseAdminController
     {
         $teacher = $this->teacher->find($id);
 
-        if ($teacher->class) {
-            toastr()->error('Giáo viên đang chủ nhiệm lớp, không thể xoá');
+        if ($teacher->class || $teacher->chapters) {
+            toastr()->error('Giáo viên không thể xoá');
             return redirect()->route('teachers.index');
         } else {
             $admin = $this->admin->findOrFail($teacher->account_id);
@@ -94,7 +94,7 @@ class TeacherController extends BaseAdminController
     {
         $admin->name = $request->name;
         $admin->email = $request->email;
-        $admin->phone_number = $request->phone;
+        $admin->phone = $request->phone;
         $admin->password = $request->password;
         $admin->role = 2;
         $admin->save();

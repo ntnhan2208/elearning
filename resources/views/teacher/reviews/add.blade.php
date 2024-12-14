@@ -43,8 +43,8 @@
                                     <p>{{config('system.answer.'.(string)$review->correct_answer)}}</p>
                                 </td>
                                 <td class="text-right">
-                                    <form class="float-right" action=""
-                                          method="POST" onSubmit="if(!confirm('Bạn chắc chắn muốn xoá Giáo viên?'))
+                                    <form class="float-right" action="{{route('reviews.destroy',$review->id)}}"
+                                          method="POST" onSubmit="if(!confirm('Bạn chắc chắn muốn xoá Câu hỏi?'))
 												  {return false;}">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
