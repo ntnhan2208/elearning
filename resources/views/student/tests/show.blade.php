@@ -28,11 +28,23 @@
                                 @endforeach
                             </div>
                         @endforeach
-                            <button class="btn btn-primary mt-3" type="submit">Hoàn thành</button>
+                            <button class="btn btn-primary mt-3" onclick="return test()">Hoàn thành</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+<script>
+    function test() {
+        var countQuestion = "<?php echo $reviewQuestions->count(); ?>";
+        var checked = document.querySelectorAll('input[type="radio"]:checked').length;
+
+        if (countQuestion * 1 != checked * 1) {
+            alert('Vui lòng chọn đáp án cho tất cả các câu hỏi!')
+            return false
+        }
+        return true
+    }
+</script>
 

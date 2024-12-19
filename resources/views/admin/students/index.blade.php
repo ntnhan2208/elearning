@@ -14,14 +14,15 @@
                 <div class="card-body">
                     <div class="table-rep-plugin">
                         <div class="table-responsive mb-0" data-pattern="priority-columns">
-                            <table id="tech-companies-1" class="table table-striped mb-0">
+                            <table id="datatable" class="table table-custom table-striped dt-responsive nowrap"
+                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                 <tr>
-                                    <th data-priority="1" class="text-center"></th>
-                                    <th data-priority="1">Tên Học sinh</th>
-                                    <th data-priority="1">Email</th>
-                                    <th data-priority="1">Lớp</th>
-                                    <th data-priority="1"></th>
+                                    <th class="text-center"></th>
+                                    <th>Tên Học sinh</th>
+                                    <th>Email</th>
+                                    <th>Lớp</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>

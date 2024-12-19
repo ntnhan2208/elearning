@@ -20,26 +20,40 @@
                     <form action="{{route('student-reviews.store')}}" method="POST"
                           enctype="multipart/form-data" class="form-horizontal well">
                         @csrf
-                        <input type="text" name="lesson_id" value="{{$id}}">
+                        <input type="text" name="lesson_id" value="{{$id}}" hidden readonly>
                         @foreach($reviewQuestions as $review)
                             <div class="col-12 mt-2">
                                 <h4 class="mt-0 header-title">{{ $loop->iteration }}. {{$review->question}}</h4>
                                 @foreach(json_decode($review->answer,JSON_FORCE_OBJECT) as $key => $answer)
-                                <div class="radio">
-                                    <input type="radio" name="review_{{$review->id}}" id="{{$review->id.$key}}" value="{{$key}}" >
-                                    <label for="{{$review->id.$key}}">
-                                        {{$answer}}
-                                    </label>
-                                </div>
+                                    <div class="radio">
+                                        <input type="radio" name="review_{{$review->id}}" id="{{$review->id.$key}}"
+                                               value="{{$key}}">
+                                        <label for="{{$review->id.$key}}">
+                                            {{$answer}}
+                                        </label>
+                                    </div>
                                 @endforeach
                             </div>
-
                         @endforeach
-                            <button type="submit" class="btn btn-primary mt-3">Hoàn thành</button>
+                        <button onclick="return test()" class="btn btn-primary mt-3">Hoàn thành</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+<script>
+    function test() {
+        var countQuestion = "<?php echo $reviewQuestions->count(); ?>";
+        var checked = document.querySelectorAll('input[type="radio"]:checked').length;
+
+        if (countQuestion * 1 != checked * 1) {
+            alert('Vui lòng chọn đáp án cho tất cả các câu hỏi!')
+            return false
+        }
+        return true
+    }
+</script>
+
 

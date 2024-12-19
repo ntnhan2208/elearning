@@ -34,9 +34,9 @@ class TeacherController extends BaseAdminController
 
     public function store(TeacherRequest $request, Admin $admin, Teacher $teacher)
     {
-        $this->syncTeacherRequest($request, $admin, $teacher);
         DB::beginTransaction();
         try {
+            $this->syncTeacherRequest($request, $admin, $teacher);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
             return redirect()->route('teachers.index');
@@ -90,6 +90,7 @@ class TeacherController extends BaseAdminController
             return redirect()->route('teachers.index');
         };
     }
+
     public function syncTeacherRequest($request, Admin $admin, Teacher $teacher)
     {
         $admin->name = $request->name;

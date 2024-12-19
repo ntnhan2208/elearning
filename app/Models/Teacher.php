@@ -25,7 +25,7 @@ class Teacher extends Model
 
     public function class()
     {
-        return $this->hasOne(Classes::class);
+        return $this->hasMany(Classes::class);
     }
 
     public function chapters()

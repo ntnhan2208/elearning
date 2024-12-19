@@ -40,7 +40,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <p>{{config('system.answer.'.(string)$review->correct_answer)}}</p>
+                                    <p>{{config('system.answer.'.(string)$review->correct_answer+1)}}</p>
                                 </td>
                                 <td class="text-right">
                                     <form class="float-right" action="{{route('reviews.destroy',$review->id)}}"
@@ -117,7 +117,7 @@
                                                         <span data-repeater-create="" class="btn btn-secondary">
                                                             <span class="fas fa-plus"></span>
                                                         </span>
-                                        <input type="submit" value="Tạo câu hỏi" class="btn btn-primary">
+                                        <button onclick="return checkReview()" class="btn btn-primary">Tạo câu hỏi</button>
                                     </div>
                                 </div>
                             </div>
@@ -128,4 +128,16 @@
         </div>
     </div>
 @endsection
+
+<script>
+
+    function checkReview(){
+        var checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        if(checked*1 != 1){
+            alert('Câu hỏi chỉ được có 1 đáp án đúng!')
+            return false
+        }
+        return true
+    }
+</script>
 

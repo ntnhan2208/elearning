@@ -30,6 +30,8 @@ Route::namespace('admin')->group(function () {
             Route::resource('/teachers', 'TeacherController');
             Route::resource('/students', 'StudentController');
             Route::resource('/classes', 'ClassesController');
+            Route::post('/classes/add-students/{class_id}', 'ClassesController@addStudents')->name('classes.add-students');
+            Route::delete('/classes/update-students/{class_id}/{student_id}', 'ClassesController@deleteStudent')->name('classes.delete-student');
             Route::resource('/chapters', 'ChapterController');
             Route::resource('/reviews', 'ReviewController');
             Route::get('/reviews/chapter/{subject_id}', 'ReviewController@indexOfChapter')->name('index-chapter');

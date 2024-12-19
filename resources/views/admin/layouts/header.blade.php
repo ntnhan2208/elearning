@@ -16,6 +16,11 @@
         <link href="{{asset('admin/assets/css/metisMenu.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('admin/assets/css/style.css?v='.$time)}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('admin/assets/css/tag-input.css')}}" rel="stylesheet" type="text/css" />
+        <!-- DataTables -->
+        <link href="{{ asset('admin/assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('admin/assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
+        <link href="{{ asset('admin/assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
         @toastr_css
         <script>var baseURL = '<?php echo e(asset('/')); ?>'</script>
         @yield('stylesheet')

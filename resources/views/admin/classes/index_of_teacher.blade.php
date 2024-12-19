@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="page-title-box">
-                <h4 class="page-title">Câu hỏi ôn tập</h4>
+                <h4 class="page-title">Quản lý Lớp học</h4>
             </div>
         </div>
         <div class="col-lg-12">
@@ -16,19 +16,21 @@
                                 <thead>
                                 <tr>
                                     <th data-priority="1" class="text-center"></th>
-                                    <th data-priority="1">Chương bài học</th>
-                                    <th data-priority="1"><span class="float-right">Chọn bài học</span></th>
+                                    <th data-priority="1">Tên lớp</th>
+                                    <th data-priority="1">Sỉ số</th>
+                                    <th data-priority="1"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($chapters as $chapter)
+                                @foreach($classes as $class)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>{{ $chapter->chapter_name }}</td>
+                                        <td>{{ $class->class_name }}</td>
+                                        <td>{{ $class->quantity }}</td>
                                         <td class="text-right">
                                             <div class="float-right">
                                                 <a class="btn btn-xs btn-primary mr-3"
-                                                   href="{{ route('index-student-test',$chapter->id) }}">
+                                                   href="{{ route('classes.show',$class->id) }}">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                             </div>

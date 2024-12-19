@@ -21,7 +21,8 @@
             <div class="col-12">
                 <div class="card shaAdow-lg bg-white rounded">
                     <div class="card-body">
-                        <table id="tech-companies-1" class="table table-striped mb-0">
+                        <table id="datatable" class="table table-custom table-striped dt-responsive nowrap"
+                               style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr>
                                 <th data-priority="1" class="text-center"></th>
