@@ -20,19 +20,27 @@
                                                     <span><i class="fas fa-exchange-alt mr-2"></i>Bài kiểm tra</span>
                                                 </div>
                                                 <div class="js-conveyor-example">
-                                                    <ul>
-                                                        <li>
-                                                            <span class="usd-rate font-14"><b>Bạn đã làm bài kiểm tra</b></span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="usd-rate font-14"><b>Số câu đúng</b></span>
-                                                            <span class="mb-0 font-12 text-danger"><b>{{$correct}}/{{$test->reviews()->count()}}</b></span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="usd-rate font-14"><b>Điểm số</b></span>
-                                                            <span class="mb-0 font-12 text-success"><b>{{$student->result->score}}</b></span>
-                                                        </li>
-                                                    </ul>
+                                                    @if($student->result && $student->result->test_id == $test->id)
+                                                        <ul>
+                                                            <li>
+                                                                <span class="usd-rate font-14"><b>Bạn đã làm bài kiểm tra</b></span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="usd-rate font-14"><b>Số câu đúng</b></span>
+                                                                <span class="mb-0 font-12 text-danger"><b>{{$correct}}/{{$test->reviews()->count()}}</b></span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="usd-rate font-14"><b>Điểm số</b></span>
+                                                                <span class="mb-0 font-12 text-success"><b>{{$student->result->score}}</b></span>
+                                                            </li>
+                                                        </ul>
+                                                    @else
+                                                        <ul>
+                                                            <li>
+                                                                <span class="usd-rate font-14"><b>Bạn chưa làm bài kiểm tra</b></span>
+                                                            </li>
+                                                        </ul>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div><!--end card-body-->
@@ -43,10 +51,12 @@
                                 @if($student->result && $student->result->test_id == $test->id)
                                     @foreach($test->reviews()->get() as $review)
                                         <div class="col-12 mt-2">
-                                            <h4 class="mt-0 header-title">{{ $loop->iteration }}. {{$review->question}}</h4>
+                                            <h4 class="mt-0 header-title">{{ $loop->iteration }}
+                                                . {{$review->question}}</h4>
                                             @foreach(json_decode($review->answer,JSON_FORCE_OBJECT) as $key => $answer)
                                                 <div class="radio">
-                                                    <input type="radio" name="review_{{$review->id}}" id="{{$review->id.$key}}"
+                                                    <input type="radio" name="review_{{$review->id}}"
+                                                           id="{{$review->id.$key}}"
                                                            value="{{$key}}"
                                                            @if(array_key_exists($review->id, $arrReviewAnswers)
                                                             && $arrReviewAnswers[$review->id] == $key)checked @endif
