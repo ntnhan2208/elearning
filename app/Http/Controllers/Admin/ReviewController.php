@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReviewRequest;
 use App\Models\Chapter;
 use App\Models\Lesson;
 use App\Models\Review;
@@ -57,7 +58,7 @@ class ReviewController extends BaseAdminController
     }
 
 
-    public function store(Request $request, Review $review)
+    public function store(ReviewRequest $request, Review $review)
     {
         DB::beginTransaction();
         try {
@@ -92,7 +93,7 @@ class ReviewController extends BaseAdminController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(ReviewRequest $request, $id)
     {
         DB::beginTransaction();
         try {

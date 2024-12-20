@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubjectRequest;
 use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class SubjectController extends BaseAdminController
         return view('teacher.subjects.add');
     }
 
-    public function store(Request $request, Subject $subject)
+    public function store(SubjectRequest $request, Subject $subject)
     {
         DB::beginTransaction();
         try {
@@ -60,7 +61,7 @@ class SubjectController extends BaseAdminController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(SubjectRequest $request, $id)
     {
         DB::beginTransaction();
         try {

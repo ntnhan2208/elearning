@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3",
         "arcanedev/log-viewer": "^8.2",
+        "barryvdh/laravel-dompdf": "^2.2",
         "bensampo/laravel-enum": "^4.1",
         "ckfinder/ckfinder-laravel-package": "^3.5",
         "doctrine/dbal": "2.*",

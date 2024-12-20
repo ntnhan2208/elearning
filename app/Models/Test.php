@@ -29,4 +29,8 @@ class Test extends Model
     public function scopeOfTeacher($query){
         return $query->where('teacher_id', Teacher::where('account_id', Auth::user()->id)->first()->id);
     }
+
+    public function result($query){
+        return $this->hasOne(Result::class);
+    }
 }

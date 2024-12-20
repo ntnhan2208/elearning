@@ -135,12 +135,14 @@ class ClassesController extends BaseAdminController
         DB::beginTransaction();
         try {
             $studentIds = $request->student_ids;
-            foreach ($studentIds as $studentId) {
-                $student = $this->student->find($studentId);
-                $student->class_id = $classId;
-                $student->save();
+            if ($studentIds) {
+                foreach ($studentIds as $studentId) {
+                    $student = $this->student->find($studentId);
+                    $student->class_id = $classId;
+                    $student->save();
+                }
+                DB::commit();
             }
-            DB::commit();
             toastr()->success(trans('site.message.update_success'));
             return back();
         } catch (\Exception $e) {

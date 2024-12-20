@@ -26,6 +26,10 @@
 <script src="{{ asset('admin/assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('admin/assets/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('admin/assets/pages/jquery.datatable.init.js') }}"></script>
+<script src="{{ asset('admin/assets/plugins/ticker/jquery.jConveyorTicker.min.js') }}"></script>
+<script src="{{ asset('admin/assets/pages/jquery.crypto-news.init.js') }}"></script>
+
+
 {{--@include('ckfinder::setup')--}}
 {{--<script src={{ asset('ckeditor/ckeditor.js') }}></script>--}}
 <script src="{{asset('admin/assets/js/bootstrap-tagsinput.min.js')}}"></script>
@@ -33,6 +37,12 @@
     $("body").on('input', '.integerInput', function () {
         $(this).val($(this).val().replace(/[^0-9]/gi, ''));
     });
+
+</script>
+@toastr_js
+@toastr_render
+@yield('script')
+<script>
     var table = $('.table-custom').DataTable({
         destroy: true,
         language: {
@@ -41,7 +51,4 @@
         "ordering": false
     });
 </script>
-@toastr_js
-@toastr_render
-@yield('script')
 <script src="{{asset('admin/assets/js/app.js')}}"></script>

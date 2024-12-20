@@ -3,17 +3,19 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
-                <div class="float-right">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Quản lý Câu hỏi ôn tập</a></li>
-                        <li class="breadcrumb-item active">Chỉnh sửa Câu hỏi ôn tập</li>
-                    </ol>
-                </div>
                 <h4 class="page-title">Danh sách Câu hỏi ôn tập</h4>
             </div>
         </div>
     </div>
     <div class="row mr-auto">
+        <div class="col-12">
+            <div class="card shadow-lg bg-white rounded">
+                <div class="card-body">
+                    <h4>Yêu cầu cần đạt</h4>
+                    <p>{{$lessonDescription}}</p>
+                </div>
+            </div>
+        </div>
         <div class="col-12">
             <div class="card shadow-lg bg-white rounded">
                 <div class="card-body">
@@ -24,7 +26,18 @@
                         @foreach($reviewQuestions as $review)
                             <div class="col-12 mt-2">
                                 <h4 class="mt-0 header-title">{{ $loop->iteration }}. {{$review->question}}</h4>
-                                @foreach(json_decode($review->answer,JSON_FORCE_OBJECT) as $key => $answer)
+                                @php
+                                    $arrayAnswers = json_decode($review->answer,JSON_FORCE_OBJECT);
+                                    $keysOfArrayAnswers= array_keys($arrayAnswers);
+
+                                    shuffle($keysOfArrayAnswers); //random key
+
+                                    $randomAnswers = [];
+                                    foreach($keysOfArrayAnswers as $key){
+                                        $randomAnswers[$key] = $arrayAnswers[$key]; // tạo mảng câu hỏi mới từ key random
+                                    }
+                                @endphp
+                                @foreach( $randomAnswers as $key => $answer)
                                     <div class="radio">
                                         <input type="radio" name="review_{{$review->id}}" id="{{$review->id.$key}}"
                                                value="{{$key}}">

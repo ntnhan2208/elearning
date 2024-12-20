@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
-                <h4 class="page-title">Kết quả Câu hỏi ôn tập</h4>
+                <h4 class="page-title">Kết quả Câu hỏi ôn tập (Số câu đúng: {{$correct}}/{{$reviewQuestions->count()}})</h4>
             </div>
         </div>
     </div>

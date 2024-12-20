@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="page-title-box">
-                <h4 class="page-title">Danh sách học sinh - {{$class->class_name}}</h4>
+{{--                <h4 class="page-title">Danh sách học sinh - {{$class->class_name}}</h4>--}}
             </div>
         </div>
         <div class="col-lg-12">
@@ -16,7 +16,7 @@
                                 <thead>
                                 <tr>
                                     <th data-priority="1" class="text-center"></th>
-                                    <th data-priority="1">Tên học sinh</th>
+                                    <th data-priority="1" style="font-family: 'Times New Roman'">Tên học sinh</th>
                                     <th data-priority="1">Điểm bài kiểm tra</th>
                                 </tr>
                                 </thead>
@@ -25,7 +25,20 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $student->name }}</td>
-                                        <td> <span @if(!$student->result) class="badge badge-soft-danger" @endif > {{ $student->result ? $student->result->score : 'Chưa làm bài kiểm tra' }}</span></td>
+                                        @php
+                                            $results = \App\Models\Result::where('student_id', $student->id)->get(['test_id','score']);
+                                        @endphp
+                                        <td>
+                                            @if($results->isNotEmpty())
+                                                @foreach($results as $result)
+                                                    <span>
+                                                {{ $result->test->test_name}}: <b>{{$result->score}}</b></span>
+                                                @endforeach
+                                            @else
+                                                <span class="badge badge-soft-danger">Chưa có bài kiểm tra</span>
+                                            @endif
+
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

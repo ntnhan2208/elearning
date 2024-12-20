@@ -25,13 +25,20 @@ class StudentTestController extends BaseAdminController
         $this->result = $result;
         parent::__construct();
     }
+
     public function index()
     {
 
         $student = $this->student->where('account_id', Auth::id())->first();
-        $subjects = $this->subject->where('teacher_id', $student->class->teacher_id)->get();
-        return view('student.tests.index', compact('subjects'));
+        if ($student->class_id) {
+            $subjects = $this->subject->where('teacher_id', $student->class->teacher_id)->get();
+            return view('student.tests.index', compact('subjects'));
+        }
+        toastr()->error('Học sinh chưa được xếp lớp!');
+        return back();
+
     }
+
     public function indexOfChapter($subjectId)
     {
         $subject = $this->subject->find($subjectId);
@@ -43,10 +50,24 @@ class StudentTestController extends BaseAdminController
         return back();
     }
 
-    public function indexOfTest($id){
+    public function indexOfTest($id)
+    {
         $student = $this->student->where('account_id', Auth::id())->first();
-        $test = $this->test->where('teacher_id', $student->class->teacher_id)->where('chapter_id',$id)->first();
-        return view('student.tests.index-test', compact('test','student'));
+        $test = $this->test->where('teacher_id', $student->class->teacher_id)->where('chapter_id', $id)->first();
+        $arrReviewAnswers = null;
+        $correct = null;
+        if ($student->result){
+            $arrReviewAnswers = json_decode($student->result->answer, JSON_FORCE_OBJECT);
+            $reviews = $test->reviews()->get(['reviews.id', 'correct_answer']);
+            $correct = 0;
+            foreach ($reviews as $review) {
+                if ($arrReviewAnswers[$review->id] == $review->correct_answer) {
+                    $correct++;
+                }
+            }
+        }
+
+        return view('student.tests.index-test', compact('test', 'student', 'arrReviewAnswers', 'correct'));
     }
 
 
@@ -63,14 +84,14 @@ class StudentTestController extends BaseAdminController
                 }
             }
 
-            $questionsOfTest = $test->reviews()->get(['reviews.id','correct_answer']);
+            $questionsOfTest = $test->reviews()->get(['reviews.id', 'correct_answer']);
             $countCorrect = 0;
-            foreach ($questionsOfTest as $question){
-                if((int)$arrayAnswers[$question->id] == $question->correct_answer){
+            foreach ($questionsOfTest as $question) {
+                if ((int)$arrayAnswers[$question->id] == $question->correct_answer) {
                     $countCorrect++;
                 }
             }
-            $mark = ($countCorrect/$countTotalQuestions)*10;
+            $mark = ($countCorrect / $countTotalQuestions) * 10;
 
             $result->answer = json_encode($arrayAnswers, JSON_FORCE_OBJECT);
             $result->score = $mark;
@@ -82,7 +103,7 @@ class StudentTestController extends BaseAdminController
 
             DB::commit();
             toastr()->success(trans('Đã hoàn thành bài ôn tập'));
-            return redirect()->route('student-tests.index');
+            return redirect()->route('index-student-test', $test->chapter_id);
         } catch (\Exception $e) {
             DB::rollback();
             toastr()->error(trans('site.message.error'));
@@ -94,7 +115,7 @@ class StudentTestController extends BaseAdminController
     public function show($id)
     {
         $test = $this->test->find($id);
-        $reviewQuestions =  $test->reviews()->get();
+        $reviewQuestions = $test->reviews()->inRandomOrder()->get();
         return view('student.tests.show', compact('test', 'reviewQuestions'));
     }
 

@@ -5,11 +5,11 @@
             <div class="page-title-box">
                 <div class="float-right">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Quản lý Chương bài học</a></li>
-                        <li class="breadcrumb-item active">Thêm Chương bài học</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Quản lý Bài học</a></li>
+                        <li class="breadcrumb-item active">Thêm Bài học</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Thêm Chương bài học</h4>
+                <h4 class="page-title">Thêm Bài học</h4>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Tên Chương bài học</label>
+                                    <label>Tên Bài học</label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="lesson_name"
                                                class="form-control"

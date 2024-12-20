@@ -16,5 +16,9 @@ class Result extends Model
         return $this->belongsTo(Student::class);
     }
 
+    public function test(){
+        return $this->belongsTo(Test::class);
+    }
+
 
 }

@@ -1,0 +1,21 @@
+{
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_803383a105437e069ba841ffd4156f27"
+    },
+    "font awesome 5 free": {
+        "normal": "font_awesome_5_free_normal_55fa458ec9016fa433b560b1e6335d41",
+        "900": "C:\\laragon\\www\\learning\\storage\\fonts\/font_awesome_5_free_900_3773b884c5d8c1431a4ddff5c7e5efdb"
+    },
+    "material design icons": {
+        "normal": "material_design_icons_normal_4722d459999e04e093612d19a75d080a"
+    },
+    "themify": {
+        "normal": "themify_normal_58868a56e0a6b4276164fd58439e3700"
+    },
+    "dripicons-v2": {
+        "normal": "dripicons_v2_normal_699b325f0de47c74735ff1e1f52633bb"
+    },
+    "typicons": {
+        "normal": "typicons_normal_b32850b4d0f2515a3680019999225e88"
+    }
+}

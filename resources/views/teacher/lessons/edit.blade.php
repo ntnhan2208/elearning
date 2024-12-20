@@ -5,11 +5,11 @@
             <div class="page-title-box">
                 <div class="float-right">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Quản lý Chương bài học</a></li>
-                        <li class="breadcrumb-item active">Chỉnh sửa Chương bài học</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Quản lý Bài học</a></li>
+                        <li class="breadcrumb-item active">Chỉnh sửa Bài học</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Chỉnh sửa Chương bài học</h4>
+                <h4 class="page-title">Chỉnh sửa Bài học</h4>
             </div>
         </div>
     </div>

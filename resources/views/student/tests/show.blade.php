@@ -18,17 +18,29 @@
                         @foreach($reviewQuestions as $review)
                             <div class="col-12 mt-2">
                                 <h4 class="mt-0 header-title">{{ $loop->iteration }}. {{$review->question}}</h4>
-                                @foreach(json_decode($review->answer,JSON_FORCE_OBJECT) as $key => $answer)
-                                <div class="radio">
-                                    <input type="radio" name="test_{{$review->id}}" id="{{$review->id.$key}}" value="{{$key}}" >
-                                    <label for="{{$review->id.$key}}">
-                                        {{$answer}}
-                                    </label>
-                                </div>
+                                @php
+                                    $arrayAnswers = json_decode($review->answer,JSON_FORCE_OBJECT);
+                                    $keysOfArrayAnswers= array_keys($arrayAnswers);
+
+                                    shuffle($keysOfArrayAnswers); //random key
+
+                                    $randomAnswers = [];
+                                    foreach($keysOfArrayAnswers as $key){
+                                        $randomAnswers[$key] = $arrayAnswers[$key]; // tạo mảng câu hỏi mới từ key random
+                                    }
+                                @endphp
+                                @foreach($randomAnswers as $key => $answer)
+                                    <div class="radio">
+                                        <input type="radio" name="test_{{$review->id}}" id="{{$review->id.$key}}"
+                                               value="{{$key}}">
+                                        <label for="{{$review->id.$key}}">
+                                            {{$answer}}
+                                        </label>
+                                    </div>
                                 @endforeach
                             </div>
                         @endforeach
-                            <button class="btn btn-primary mt-3" onclick="return test()">Hoàn thành</button>
+                        <button class="btn btn-primary mt-3" onclick="return test()">Hoàn thành</button>
                     </form>
                 </div>
             </div>

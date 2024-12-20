@@ -19,7 +19,8 @@
         <div class="col-12">
             <div class="card shadow-lg bg-white rounded">
                 <div class="card-body">
-                    <table id="tech-companies-1" class="table table-striped mb-0">
+                    <table id="datatable" class="table table-custom table-striped dt-responsive nowrap"
+                           style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
                             <th data-priority="1" class="text-center"></th>
@@ -48,11 +49,11 @@
 												  {return false;}">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-xs btn-danger"><i class="fas
+                                        <button type="submit" class="btn btn-danger"><i class="fas
 												fa-trash"></i></button>
                                     </form>
                                     <div class="float-right">
-                                        <a class="btn btn-xs btn-primary mr-3"
+                                        <a class="btn btn-primary mr-3"
                                            href="{{route('reviews.edit',$review->id)}}">
                                             <i class="far fa-edit"></i>
                                         </a>
@@ -105,7 +106,7 @@
 
                                             <div class="col-sm-2">
                                                                 <span data-repeater-delete=""
-                                                                      class="btn btn-danger btn-sm">
+                                                                      class="btn btn-danger">
                                                                     <span class="far fa-trash-alt"></span> Xoá
                                                                 </span>
                                             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LessonRequest;
 use App\Models\Chapter;
 use App\Models\Lesson;
 use App\Models\Teacher;
@@ -38,7 +39,7 @@ class LessonController extends BaseAdminController
     }
 
 
-    public function store(Request $request, Lesson $lesson)
+    public function store(LessonRequest $request, Lesson $lesson)
     {
         DB::beginTransaction();
         try {
@@ -66,7 +67,7 @@ class LessonController extends BaseAdminController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(LessonRequest $request, $id)
     {
 
         DB::beginTransaction();

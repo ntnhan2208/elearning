@@ -29,8 +29,12 @@ class StudentReviewController extends BaseAdminController
     public function index()
     {
         $student = $this->student->where('account_id', Auth::id())->first();
-        $subjects = $this->subject->where('teacher_id', $student->class->teacher_id)->get();
-        return view('student.reviews.index-of-subject', compact('subjects'));
+        if ($student->class_id) {
+            $subjects = $this->subject->where('teacher_id', $student->class->teacher_id)->get();
+            return view('student.reviews.index-of-subject', compact('subjects'));
+        }
+        toastr()->error('Học sinh chưa được xếp lớp!');
+        return back();
     }
 
     public function indexOfChapter($subjectId)
@@ -77,7 +81,7 @@ class StudentReviewController extends BaseAdminController
             }
             DB::commit();
             toastr()->success(trans('Đã hoàn thành bài ôn tập'));
-            return redirect()->route('student-reviews.index');
+            return redirect()->route('student-reviews.edit', $lessonId);
         } catch (\Exception $e) {
             DB::rollback();
             toastr()->error(trans('site.message.error'));
@@ -89,8 +93,9 @@ class StudentReviewController extends BaseAdminController
 
     public function show($id)
     {
-        $reviewQuestions = $this->review->where('lesson_id', $id)->get();
-        return view('student.reviews.show', compact('reviewQuestions', 'id'));
+        $reviewQuestions = $this->review->where('lesson_id', $id)->inRandomOrder()->get();
+        $lessonDescription = $this->lesson->find($id)->lesson_description;
+        return view('student.reviews.show', compact('reviewQuestions', 'id','lessonDescription'));
     }
 
     public function edit($id)
@@ -106,7 +111,15 @@ class StudentReviewController extends BaseAdminController
         foreach ($reviewAnswers as $key => $value) {
             $arrReviewAnswers[$value->review_id] = $value->answer;
         }
-        return view('student.reviews.review-result', compact('reviewQuestions', 'arrReviewQuestions', 'arrReviewAnswers', 'student'));
+
+        $correct = 0;
+        foreach ($reviewQuestions as $review) {
+            if ($arrReviewAnswers[$review->id] == $review->correct_answer) {
+                $correct++;
+            }
+        }
+
+        return view('student.reviews.review-result', compact('reviewQuestions', 'arrReviewQuestions', 'arrReviewAnswers', 'student', 'correct'));
     }
 
 }
