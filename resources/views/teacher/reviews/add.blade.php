@@ -19,29 +19,29 @@
         <div class="col-12">
             <div class="card shadow-lg bg-white rounded">
                 <div class="card-body">
-                    <table id="datatable" class="table table-custom table-striped dt-responsive nowrap"
+                    <table id="datatable" class="table table-custom table-striped dt-responsive "
                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
                             <th data-priority="1" class="text-center"></th>
-                            <th data-priority="1">Câu hỏi</th>
-                            <th data-priority="1">Câu trả lời</th>
-                            <th data-priority="1">Đáp án đúng</th>
+                            <th data-priority="1" width="40%">Câu hỏi</th>
+                            <th data-priority="1" width="30%">Câu trả lời</th>
+                            <th data-priority="1" width="5%">Đáp án đúng</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach($reviews as $review)
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $review->question }}</td>
+                                <td class="text-center"><p>{{ $loop->iteration }}</p></td>
+                                <td><p>{{ $review->question }}</p></td>
                                 <td>
                                     @foreach(json_decode($review->answer,JSON_FORCE_OBJECT) as $key => $answer)
                                         <p>{{config('system.answer.'.(string)($key+1))}} - {{ $answer }}</p>
                                     @endforeach
                                 </td>
                                 <td>
-                                    <p>{{config('system.answer.'.(string)$review->correct_answer+1)}}</p>
+                                    <p>{{config('system.answer.'.(string)((int)$review->correct_answer+1))}}</p>
                                 </td>
                                 <td class="text-right">
                                     <form class="float-right" action="{{route('reviews.destroy',$review->id)}}"
