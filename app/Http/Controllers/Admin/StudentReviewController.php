@@ -95,7 +95,7 @@ class StudentReviewController extends BaseAdminController
     {
         $reviewQuestions = $this->review->where('lesson_id', $id)->inRandomOrder()->get();
         $lessonDescription = $this->lesson->find($id)->lesson_description;
-        return view('student.reviews.show', compact('reviewQuestions', 'id','lessonDescription'));
+        return view('student.reviews.show', compact('reviewQuestions', 'id', 'lessonDescription'));
     }
 
     public function edit($id)
@@ -108,18 +108,25 @@ class StudentReviewController extends BaseAdminController
             ->whereIn('review_id',
                 $this->review->where('lesson_id', $id)->pluck('id')->toArray())
             ->get(['review_id', 'answer']);
-        foreach ($reviewAnswers as $key => $value) {
-            $arrReviewAnswers[$value->review_id] = $value->answer;
-        }
+        if ($reviewAnswers->isNotEmpty()) {
 
-        $correct = 0;
-        foreach ($reviewQuestions as $review) {
-            if ($arrReviewAnswers[$review->id] == $review->correct_answer) {
-                $correct++;
+            foreach ($reviewAnswers as $key => $value) {
+                $arrReviewAnswers[$value->review_id] = $value->answer;
             }
-        }
 
-        return view('student.reviews.review-result', compact('reviewQuestions', 'arrReviewQuestions', 'arrReviewAnswers', 'student', 'correct'));
+            $correct = 0;
+            foreach ($reviewQuestions as $review) {
+                if ($arrReviewAnswers[$review->id] == $review->correct_answer) {
+                    $correct++;
+                }
+            }
+            return view('student.reviews.review-result', compact('reviewQuestions', 'arrReviewQuestions', 'arrReviewAnswers', 'student', 'correct'));
+
+        }
+        toastr()->error('Học sinh chưa làm bài ôn tập');
+        return back();
+
+
     }
 
 }
