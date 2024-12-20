@@ -10,6 +10,7 @@ use App\Models\Teacher;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use Mpdf\Mpdf;
 
 class ClassesController extends BaseAdminController
 {
@@ -46,6 +47,15 @@ class ClassesController extends BaseAdminController
         $class = $this->class->find($id);
         if ($class) {
             $students = $class->students()->get();
+//            $mpdf = new Mpdf([
+//                'default_font' => 'dejavu_sans'
+//            ]);
+//
+//            $html = view('admin.classes.students_of_class', array('students' => $students))->render();
+//
+//            $mpdf->WriteHTML($html);
+//            $mpdf->Output('document.pdf', 'D');
+
             return view('admin.classes.students_of_class', compact('students', 'class'));
         }
     }
@@ -82,10 +92,10 @@ class ClassesController extends BaseAdminController
         $class = $this->class->find($id);
         if ($class) {
             $students = $this->student->whereNull('class_id')->orWhere('class_id', '')->get(['id', 'name']);
-            $currentQuantity = $this->student->where('class_id',$class->id)->count();
+            $currentQuantity = $this->student->where('class_id', $class->id)->count();
             //$teachers = $this->teacher->whereNotIn('id', $this->class->where('id', '!=', $id)->get()->pluck('teacher_id')->toArray())->get();
             $teachers = $this->teacher->get();
-            return view('admin.classes.edit', compact('class', 'teachers', 'students','currentQuantity'));
+            return view('admin.classes.edit', compact('class', 'teachers', 'students', 'currentQuantity'));
         }
         toastr()->error(trans('site.message.error'));
         return redirect()->route('teachers.index');
@@ -167,5 +177,21 @@ class ClassesController extends BaseAdminController
             toastr()->error(trans('site.message.error'));
             return back();
         }
+    }
+
+    public function export($id)
+    {
+        $class = $this->class->find($id);
+
+        $students = $class->students()->get();
+        $mpdf = new Mpdf([
+            'default_font' => 'dejavu_sans'
+        ]);
+
+        $html = view('admin.classes.pdf', array('students' => $students, 'class' => $class))->render();
+
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('document.pdf', 'D');
+
     }
 }

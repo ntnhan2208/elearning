@@ -15,34 +15,17 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="wrap">
-                                                <div class="jctkr-label">
-                                                    <span><i class="fas fa-exchange-alt mr-2"></i>Bài kiểm tra</span>
+                                            @if($student->result && $student->result->test_id == $test->id)
+                                                <div class="alert alert-secondary border-0" role="alert">
+                                                    <strong>Số câu đúng: {{$correct}}/{{$test->reviews()->count()}} -
+                                                        Điểm: {{$student->result->score}}  </strong>
                                                 </div>
-                                                <div class="js-conveyor-example">
-                                                    @if($student->result && $student->result->test_id == $test->id)
-                                                        <ul>
-                                                            <li>
-                                                                <span class="usd-rate font-14"><b>Bạn đã làm bài kiểm tra</b></span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="usd-rate font-14"><b>Số câu đúng</b></span>
-                                                                <span class="mb-0 font-12 text-danger"><b>{{$correct}}/{{$test->reviews()->count()}}</b></span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="usd-rate font-14"><b>Điểm số</b></span>
-                                                                <span class="mb-0 font-12 text-success"><b>{{$student->result->score}}</b></span>
-                                                            </li>
-                                                        </ul>
-                                                    @else
-                                                        <ul>
-                                                            <li>
-                                                                <span class="usd-rate font-14"><b>Bạn chưa làm bài kiểm tra</b></span>
-                                                            </li>
-                                                        </ul>
-                                                    @endif
+                                            @else
+                                                <div class="alert alert-info alert-dismissible" role="alert">
+
+                                                    <strong>Bạn chưa làm bài kiểm tra</strong>
                                                 </div>
-                                            </div>
+                                            @endif
                                         </div><!--end card-body-->
                                     </div><!--end card-->
                                 </div><!--end col-->
