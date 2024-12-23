@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Result;
+use App\Models\Review;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Test;
@@ -15,7 +16,7 @@ use DB;
 
 class StudentTestController extends BaseAdminController
 {
-    public function __construct(Test $test, Chapter $chapter, Teacher $teacher, Student $student, Result $result, Subject $subject)
+    public function __construct(Test $test, Chapter $chapter, Teacher $teacher, Student $student, Result $result, Subject $subject, Review $review)
     {
         $this->test = $test;
         $this->chapter = $chapter;
@@ -23,6 +24,7 @@ class StudentTestController extends BaseAdminController
         $this->student = $student;
         $this->subject = $subject;
         $this->result = $result;
+        $this->review = $review;
         parent::__construct();
     }
 
@@ -56,7 +58,7 @@ class StudentTestController extends BaseAdminController
         $test = $this->test->where('teacher_id', $student->class->teacher_id)->where('chapter_id', $id)->first();
         $arrReviewAnswers = null;
         $correct = null;
-        if ($student->result){
+        if ($student->result) {
             $arrReviewAnswers = json_decode($student->result->answer, JSON_FORCE_OBJECT);
             $reviews = $test->reviews()->get(['reviews.id', 'correct_answer']);
             $correct = 0;
@@ -115,8 +117,26 @@ class StudentTestController extends BaseAdminController
     public function show($id)
     {
         $test = $this->test->find($id);
-        $reviewQuestions = $test->reviews()->inRandomOrder()->get();
-        return view('student.tests.show', compact('test', 'reviewQuestions'));
+
+        $chapter = $this->chapter->find($test->chapter_id);
+        $questionIds = [];
+
+        foreach ($chapter->lessons as $lesson) {
+            foreach ($this->review->where('lesson_id', $lesson->id)->get() as $value) {
+
+                $questionIds[] = $value->id;
+            }
+        }
+        $student = $this->student->where('account_id', Auth::id())->first();
+        $reviewResult = DB::table('review_student')->where('student_id', $student->id)->pluck('review_id')->toArray();
+
+        if (count($reviewResult) > 0 && array_diff($questionIds, array_intersect($questionIds, $reviewResult)) == null) {
+            $reviewQuestions = $test->reviews()->inRandomOrder()->get();
+            return view('student.tests.show', compact('test', 'reviewQuestions'));
+        }
+        toastr()->error('Hoàn thành các bài ôn tập của chương trước khi làm bài kiểm tra!');
+        return back();
+
     }
 
 

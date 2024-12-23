@@ -22,7 +22,6 @@
                                                 </div>
                                             @else
                                                 <div class="alert alert-info alert-dismissible" role="alert">
-
                                                     <strong>Bạn chưa làm bài kiểm tra</strong>
                                                 </div>
                                             @endif
