@@ -57,6 +57,12 @@
                 </a>
             </li>
         @else
+            <li class="{{ (request()->is('admin/student-dashboard*')) ? 'mm-active' : '' }}">
+                <a href="{{ route('student-dashboard.index') }}">
+                    <i class="ti-bar-chart"></i>
+                    <span>Tổng quan</span>
+                </a>
+            </li>
             <li class="{{ (request()->is('admin/student-reviews*')) ? 'mm-active' : '' }}">
                 <a href="{{ route('student-reviews.index') }}">
                     <i class="ti-book"></i>

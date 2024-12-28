@@ -45,6 +45,7 @@ Route::namespace('admin')->group(function () {
             Route::resource('/lessons', 'LessonController');
             Route::resource('/student-tests', 'StudentTestController');
             Route::resource('/student-reviews', 'StudentReviewController');
+            Route::resource('/student-dashboard', 'DashboardController');
             Route::delete('/detach-tests/{testId}/{reviewId}', 'TestController@detachTests')->name('detach-tests');
 
             Route::get('student/reviews/chapter/{subject_id}', 'StudentReviewController@indexOfChapter')->name('index-chapter-student');

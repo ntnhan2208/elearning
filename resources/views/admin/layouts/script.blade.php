@@ -28,6 +28,7 @@
 <script src="{{ asset('admin/assets/pages/jquery.datatable.init.js') }}"></script>
 <script src="{{ asset('admin/assets/plugins/ticker/jquery.jConveyorTicker.min.js') }}"></script>
 <script src="{{ asset('admin/assets/pages/jquery.crypto-news.init.js') }}"></script>
+<script src="{{ asset('admin/assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
 
 
 {{--@include('ckfinder::setup')--}}
@@ -51,4 +52,5 @@
         "ordering": false
     });
 </script>
+
 <script src="{{asset('admin/assets/js/app.js')}}"></script>

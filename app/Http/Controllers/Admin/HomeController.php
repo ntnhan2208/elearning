@@ -10,13 +10,12 @@ use Illuminate\Routing\Controller as BaseController;
 
 class HomeController extends BaseAdminController
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
+        if (\Auth::user()->role == 3){
+            return redirect()->route('student-dashboard.index');
+        }
         return view('admin.home');
     }
 
