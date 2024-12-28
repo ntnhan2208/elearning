@@ -37,9 +37,11 @@
         $chapters = [];
         $totalQuestions = [];
         foreach ($countQuestionsOfChapter as $key => $value) {
-            $chapters[] = '"' . $key . '"';
+            $chapters[] = '"' . substr($key,0,10) . '"';
             $totalQuestions[] = '"' . $value . '"';
         }
+
+
 
         $arrayChapters = '[' . implode(',', $chapters) . ']';
         $totalQuestions = '[' . implode(',', $totalQuestions) . ']';
