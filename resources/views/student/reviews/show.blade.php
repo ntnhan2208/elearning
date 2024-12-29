@@ -12,7 +12,7 @@
             <div class="card shadow-lg bg-white rounded">
                 <div class="card-body">
                     <h4>Yêu cầu cần đạt</h4>
-                    <p>{{$lessonDescription}}</p>
+                    <p class="description">{{$lessonDescription}}</p>
                 </div>
             </div>
         </div>
@@ -67,6 +67,18 @@
         }
         return true
     }
+
+        window.onload = function(e){
+        let elements = document.querySelectorAll('.description');
+        elements.forEach((el) => {
+        var text = el.textContent;
+        var str = text.replace(/\./g, ".<br>");
+        console.log(str)
+
+        el.innerHTML = str;
+    });
+    }
+
 </script>
 
 

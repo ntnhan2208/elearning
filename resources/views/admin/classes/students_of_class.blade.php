@@ -21,6 +21,7 @@
                                     <th data-priority="1" class="text-center"></th>
                                     <th data-priority="1">Tên học sinh</th>
                                     <th data-priority="1">Điểm bài kiểm tra</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -41,6 +42,12 @@
                                                 <span class="badge badge-soft-danger">Chưa có bài kiểm tra</span>
                                             @endif
 
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-xs btn-primary"
+                                               href="{{route('classes.process', $student->id)}}">
+                                                Quá trình ôn tập của học sinh
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

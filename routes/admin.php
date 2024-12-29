@@ -31,6 +31,9 @@ Route::namespace('admin')->group(function () {
             Route::resource('/students', 'StudentController');
             Route::resource('/classes', 'ClassesController');
             Route::get('/classes/export/{id}', 'ClassesController@export')->name('classes.export');
+            Route::get('/classes/process/{id}', 'ClassesController@process')->name('classes.process');
+            Route::get('/classes/process-show/{studentId}/{subjectId}', 'ClassesController@showProcess')->name('classes.process-show');
+            Route::get('/classes/process-detail/{studentId}/{chapterId}', 'ClassesController@detailProcess')->name('classes.process-detail');
             Route::post('/classes/add-students/{class_id}', 'ClassesController@addStudents')->name('classes.add-students');
             Route::delete('/classes/update-students/{class_id}/{student_id}', 'ClassesController@deleteStudent')->name('classes.delete-student');
             Route::resource('/chapters', 'ChapterController');

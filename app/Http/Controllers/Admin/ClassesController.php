@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClassRequest;
+use App\Models\Chapter;
 use App\Models\Classes;
+use App\Models\Review;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use DB;
@@ -17,11 +20,14 @@ class ClassesController extends BaseAdminController
     protected $class;
     protected $teacher;
 
-    public function __construct(Classes $class, Teacher $teacher, Student $student)
+    public function __construct(Classes $class, Teacher $teacher, Student $student, Subject $subject, Chapter $chapter, Review $review)
     {
         $this->class = $class;
         $this->teacher = $teacher;
         $this->student = $student;
+        $this->subject = $subject;
+        $this->chapter = $chapter;
+        $this->review = $review;
         parent::__construct();
     }
 
@@ -34,7 +40,6 @@ class ClassesController extends BaseAdminController
             $teacher = $this->teacher->where('account_id', Auth::user()->id)->first();
             $classes = $teacher->class()->get();
             if ($classes) {
-                //$students = $class->students()->get();
                 return view('admin.classes.index_of_teacher', compact('classes'));
             }
             toastr()->error('Hiện giáo viên chưa được phân công lớp!');
@@ -47,15 +52,6 @@ class ClassesController extends BaseAdminController
         $class = $this->class->find($id);
         if ($class) {
             $students = $class->students()->get();
-//            $mpdf = new Mpdf([
-//                'default_font' => 'dejavu_sans'
-//            ]);
-//
-//            $html = view('admin.classes.students_of_class', array('students' => $students))->render();
-//
-//            $mpdf->WriteHTML($html);
-//            $mpdf->Output('document.pdf', 'D');
-
             return view('admin.classes.students_of_class', compact('students', 'class'));
         }
     }
@@ -93,7 +89,6 @@ class ClassesController extends BaseAdminController
         if ($class) {
             $students = $this->student->whereNull('class_id')->orWhere('class_id', '')->get(['id', 'name']);
             $currentQuantity = $this->student->where('class_id', $class->id)->count();
-            //$teachers = $this->teacher->whereNotIn('id', $this->class->where('id', '!=', $id)->get()->pluck('teacher_id')->toArray())->get();
             $teachers = $this->teacher->get();
             return view('admin.classes.edit', compact('class', 'teachers', 'students', 'currentQuantity'));
         }
@@ -194,4 +189,73 @@ class ClassesController extends BaseAdminController
         $mpdf->Output('document.pdf', 'D');
 
     }
+
+    public function process($id)
+    {
+        $student = $this->student->find($id);
+        $subjects = $this->subject->where('teacher_id', $student->class->teacher_id)->get();
+        if ($subjects){
+            return view('admin.classes.process.home', compact('subjects','student'));
+        }
+        return back();
+    }
+
+    public function showProcess($studentId,$subjectId)
+    {
+
+        $student = $this->student->find($studentId);
+        $chapters = $this->chapter->where('subject_id', $subjectId)->get();
+        $countQuestionsOfChapter = [];
+        $reviews = [];
+        $arrayCountCorrect = [];
+        foreach ($chapters as $chapter) {
+            $countQuestionsOfChapter[$chapter->chapter_name] = count($this->review->questionsOfType('chapter', $chapter->id));
+
+            $questionOfChapter = $this->review->questionsOfType('chapter', $chapter->id);
+            $reviews[] = DB::table('review_student')
+                ->where('student_id', $this->student->find($studentId)->id)
+                ->whereIn('review_id', $questionOfChapter)->count();
+
+            $reviewsDetail = DB::table('review_student')
+                ->where('student_id', $this->student->find($studentId)->id)
+                ->whereIn('review_id', $questionOfChapter)->get();
+            $countCorrect = 0;
+            foreach ($reviewsDetail as $review) {
+                if($this->review->find($review->review_id)->correct_answer == $review->answer){
+                    $countCorrect++;
+                }
+            }
+            $arrayCountCorrect[] = $countCorrect;
+
+
+        }
+
+        return view('admin.classes.process.dashboards.chapters-of-subject', compact('student','chapters', 'countQuestionsOfChapter', 'reviews', 'arrayCountCorrect'));
+
+    }
+
+    public function detailProcess($studentId,$chapterId)
+    {
+        $student = $this->student->find($studentId);
+        $chapter = $this->chapter->findOrFail($chapterId);
+        $lessons = $chapter->lessons()->get();
+        $countQuestionsOfLesson = [];
+        $percentOfLesson = [];
+
+        foreach ($lessons as $lesson) {
+            $countQuestionsOfLesson[$lesson->id] = count($this->review->questionsOfType('lesson', $lesson->id));
+            $questionOfLesson = $this->review->questionsOfType('lesson', $lesson->id);
+            $reviews = DB::table('review_student')->where('student_id', $this->student->find($studentId)->id)->whereIn('review_id', $questionOfLesson)->get();
+            $countCorrect = 0;
+            foreach ($reviews as $review) {
+                if($this->review->find($review->review_id)->correct_answer == $review->answer){
+                    $countCorrect++;
+                }
+            }
+            $percentOfLesson[$lesson->id] = count($questionOfLesson) == 0 ? 0 :  round($countCorrect/count($questionOfLesson),2) * 100;
+        }
+
+        return view('admin.classes.process.dashboards.chapter-detail', compact('chapter', 'lessons','countQuestionsOfLesson','percentOfLesson','student'));
+    }
+
 }

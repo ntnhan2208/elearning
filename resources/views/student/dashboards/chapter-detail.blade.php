@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('content')
-    <h4 class="header-title mt-3">Tỉ lệ câu ôn tập đúng so với tổng số câu hỏi </h4>
+    <h4 class="header-title mt-3">Tỉ lệ câu ôn tập đúng so với tổng số câu hỏi</h4>
     @foreach($lessons as $lesson)
         <div class="card mt-4">
             <div class="card-body">
@@ -18,7 +18,9 @@
                         <i class="mdi mdi-alert-outline alert-icon"></i>
                         <div class="alert-text">
                             <strong><h5>Bạn chỉ ôn tập đúng {{$percentOfLesson[$lesson->id]}}% số câu! Bạn cần ôn tập để:</h5></strong>
-                            <p class="pt-1">{{$lesson->lesson_description}}</p>
+                            <p class="pt-1 description">{{$lesson->lesson_description}}</p>
+                            <div id="foo">1234567890123456789012345678901234567890123456789012345678901234567890</div>
+
                         </div>
                     </div>
                     <a class="btn btn-xs btn-primary ml-4"
@@ -39,5 +41,17 @@
 
 @endsection
 @section('script')
+<script>
+    window.onload = function(e){
+        let elements = document.querySelectorAll('.description');
+        elements.forEach((el) => {
+            var text = el.textContent;
+            var str = text.replace(/\./g, ".<br>");
+            console.log(str)
 
+            el.innerHTML = str;
+        });
+    }
+
+</script>
 @endsection
