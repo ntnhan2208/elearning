@@ -115,7 +115,7 @@ class ReviewController extends BaseAdminController
         $review = $this->review->find($id);
 
         if ($review->tests->isNotEmpty() || $review->students->isNotEmpty()) {
-            toastr()->error('Không thể xoá bài học');
+            toastr()->error('Không thể xoá câu hỏi');
             return back();
         } else {
             $this->review->destroy($id);
