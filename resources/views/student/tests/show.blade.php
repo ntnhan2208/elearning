@@ -17,7 +17,7 @@
                         @csrf
                         @foreach($reviewQuestions as $review)
                             <div class="col-12 mt-2">
-                                <h4 class="mt-0 header-title">{{ $loop->iteration }}. {{$review->question}}</h4>
+                                <h4 class="mt-0 header-title">{{ $loop->iteration }}. {!! $review->question !!}</h4>
                                 @php
                                     $arrayAnswers = json_decode($review->answer,JSON_FORCE_OBJECT);
                                     $keysOfArrayAnswers= array_keys($arrayAnswers);

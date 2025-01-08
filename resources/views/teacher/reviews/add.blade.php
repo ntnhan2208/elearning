@@ -34,7 +34,7 @@
                             @foreach($reviews as $review)
                             <tr>
                                 <td class="text-center"><p>{{ $loop->iteration }}</p></td>
-                                <td><p>{{ $review->question }}</p></td>
+                                <td><p>{!! $review->question !!} </p></td>
                                 <td>
                                     @foreach(json_decode($review->answer,JSON_FORCE_OBJECT) as $key => $answer)
                                         <p>{{config('system.answer.'.(string)($key+1))}} - {{ $answer }}</p>
@@ -86,8 +86,9 @@
                                     <div class="form-group">
                                         <label>Câu hỏi</label>
                                         <div class="input-group">
-                                            <textarea type="text" id="example-input1-group1" name="question"
-                                                      class="form-control"></textarea>
+                                            <textarea type="text" id="elm1" name="question"></textarea>
+{{--                                            <textarea type="text" id="example-input1-group1" name="question"--}}
+{{--                                                      class="form-control"></textarea>--}}
                                         </div>
                                         <input type="text" value="{{$id}}" name="lesson_id" hidden readonly>
                                     </div>

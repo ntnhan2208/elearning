@@ -24,8 +24,9 @@
                         @csrf
                         <input type="text" name="lesson_id" value="{{$id}}" hidden readonly>
                         @foreach($reviewQuestions as $review)
+                            <div class="row">
                             <div class="col-12 mt-2">
-                                <h4 class="mt-0 header-title">{{ $loop->iteration }}. {{$review->question}}</h4>
+                                <h4 class="mt-0 header-title">{{ $loop->iteration }}. {!! $review->question !!}</h4>
                                 @php
                                     $arrayAnswers = json_decode($review->answer,JSON_FORCE_OBJECT);
                                     $keysOfArrayAnswers= array_keys($arrayAnswers);
@@ -41,11 +42,12 @@
                                     <div class="radio">
                                         <input type="radio" name="review_{{$review->id}}" id="{{$review->id.$key}}"
                                                value="{{$key}}">
-                                        <label for="{{$review->id.$key}}">
+                                        <label style="max-width: 70%" for="{{$review->id.$key}}">
                                             {{$answer}}
                                         </label>
                                     </div>
                                 @endforeach
+                            </div>
                             </div>
                         @endforeach
                         <button onclick="return test()" class="btn btn-primary mt-3">Hoàn thành</button>

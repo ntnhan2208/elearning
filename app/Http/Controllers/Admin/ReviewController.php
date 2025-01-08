@@ -60,6 +60,7 @@ class ReviewController extends BaseAdminController
 
     public function store(ReviewRequest $request, Review $review)
     {
+
         DB::beginTransaction();
         try {
             $this->syncRequest($request, $review);
