@@ -21,6 +21,7 @@
                           enctype="multipart/form-data" class="form-horizontal well">
                         @method('PUT')
                         @csrf
+                        <input type="text" value="{{$review->lesson_id}}" name="lesson_id" hidden readonly>
                         <fieldset>
                             <div class="repeater-default">
                                 <div data-repeater-list="question_answer">

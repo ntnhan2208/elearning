@@ -99,10 +99,11 @@ class ReviewController extends BaseAdminController
         DB::beginTransaction();
         try {
             $review = $this->review->find($id);
+    
             $this->syncRequest($request, $review);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
-            return back();
+            return redirect()->route('reviews.show', $review->lesson->chapter->id);
         } catch (\Exception $e) {
             DB::rollback();
             toastr()->error(trans('site.message.error'));
