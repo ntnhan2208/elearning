@@ -35,7 +35,7 @@
                             @foreach($test->reviews()->get() as $review)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $review->question }}</td>
+                                    <td>{!! $review->question !!}</td>
 {{--                                    <td>{{ $review->chapter->chapter_name }}</td>--}}
                                     <td class="text-right">
                                         <form class="float-right"

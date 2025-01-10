@@ -50,8 +50,8 @@
                                     @foreach($questionsOutTest as $review)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td>{{ $review->question }}</td>
-{{--                                            <td>{{ $review->chapter->chapter_name }}</td>--}}
+                                            <td>{!! $review->question !!}</td>
+                                            {{--                                            <td>{{ $review->chapter->chapter_name }}</td>--}}
                                             <td><input type="checkbox" name="review_id[]" value="{{$review->id}}"></td>
                                         </tr>
                                     @endforeach

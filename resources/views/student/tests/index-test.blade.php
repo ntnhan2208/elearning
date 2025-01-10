@@ -34,7 +34,7 @@
                                     @foreach($test->reviews()->get() as $review)
                                         <div class="col-12 mt-2">
                                             <h4 class="mt-0 header-title">{{ $loop->iteration }}
-                                                . {{$review->question}}</h4>
+                                                . {!!$review->question!!}</h4>
                                             @foreach(json_decode($review->answer,JSON_FORCE_OBJECT) as $key => $answer)
                                                 <div class="radio">
                                                     <input type="radio" name="review_{{$review->id}}"

@@ -29,7 +29,7 @@
                                         <label>Câu hỏi</label>
                                         <div class="input-group">
                                             <textarea type="text" id="elm1" name="question"
-                                                      class="form-control">{{$review->question}}</textarea>
+                                                      class="form-control">{!! $review->question !!}</textarea>
                                         </div>
                                         <input type="text" value="{{$review->chapter_id}}" name="chapter_id" hidden readonly>
                                     </div>
