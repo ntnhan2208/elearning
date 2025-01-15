@@ -19,8 +19,6 @@
                         <div class="alert-text">
                             <strong><h5>Bạn chỉ ôn tập đúng {{$percentOfLesson[$lesson->id]}}% số câu! Bạn cần ôn tập để:</h5></strong>
                             <p class="pt-1 description">{{$lesson->lesson_description}}</p>
-                            <div id="foo">1234567890123456789012345678901234567890123456789012345678901234567890</div>
-
                         </div>
                     </div>
                     <a class="btn btn-xs btn-primary ml-4"
